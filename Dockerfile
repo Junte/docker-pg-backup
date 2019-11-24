@@ -1,15 +1,14 @@
-FROM alpine:3.9
+FROM python:3.8-alpine3.10
 
 ENV PGHOST='localhost:5432' \
     PGDATABASE='postgres' \
     PGUSER='postgres@postgres' \
     PGPASSWORD='password'
 
+WORKDIR /src
+
 RUN apk update && apk add postgresql-client
 
-RUN mkdir /pg_backup
+COPY dumper.py .
 
-COPY dump_db.sh .
-
-ENTRYPOINT [ "/bin/sh" ]
-CMD [ "./dump_db.sh" ]
+ENTRYPOINT [ "python", "dumper.py" ]
