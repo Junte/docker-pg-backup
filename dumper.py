@@ -9,7 +9,9 @@ from datetime import datetime
 BASE_BACKUP_PATH = "/pg_backup"
 
 databases = [
-    db_name.strip() for db_name in os.environ.get("BACKUP_DATABASES", "").split(",")
+    db_name.strip() 
+    for db_name in os.environ.get("BACKUP_DATABASES", "").split(",") 
+    if db_name.strip()
 ]
 
 print("Databases to dump: {}".format(databases))
