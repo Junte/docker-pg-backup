@@ -8,14 +8,14 @@ from datetime import datetime
 
 BASE_BACKUP_PATH = "/pg_backup"
 
-databases = os.environ.get("BACKUP_DATABASES", "").split(",")
+databases = [
+    db_name.strip() for db_name in os.environ.get("BACKUP_DATABASES", "").split(",")
+]
 
 print("Databases to dump: {}".format(databases))
 
 
-def dump_database(db_name: str):
-    print("Backup database: {}".format(db_name))
-
+def dump_database(db_name: str) -> subprocess.CompletedProcess:
     dest_path = "{base}/{db_name}".format(base=BASE_BACKUP_PATH, db_name=db_name)
     pathlib.Path(dest_path).mkdir(parents=True, exist_ok=True)
 
@@ -25,10 +25,20 @@ def dump_database(db_name: str):
 
     dump_cmd = ["pg_dump", "-d", db_name, "-w", "--format", "c"]
     with open(dest_file, "w") as outfile:
-        proc_result = subprocess.run(dump_cmd, stdout=outfile)
-
-    print("return code = {}".format(proc_result.returncode))
+        return subprocess.run(dump_cmd, stdout=outfile)
 
 
 for database in databases:
-    dump_database(database.strip())
+    print("# Backup database: {} ... ".format(database), end="")
+
+    result_msg = "ok"
+    try:
+        proc_result = dump_database(database)
+    except Exception as err:
+        result_msg = "fail [err: {}]".format(err)
+    else:
+        if proc_result.returncode != 0:
+            result_msg = "fail [ret code: {}]".format(proc_result.returncode)
+
+    print(result_msg)
+
