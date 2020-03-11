@@ -22,3 +22,5 @@ docker run \
     -v <host_backups_folder>:/pg_backup \
     junte/pg-backup:1.3-client12
 ```
+
+If "BACKUP_DATABASES=\__all__" - alldump will be executed

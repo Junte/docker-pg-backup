@@ -1,4 +1,4 @@
-version = 1.3-client12
+version = 1.4-client12
 
 build:
 	@docker build -t junte/pg-backup:$(version) .

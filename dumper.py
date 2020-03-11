@@ -15,7 +15,7 @@ databases = [
     if db_name.strip()
 ]
 
-print("Databases to dump: {}".format(databases),  flush=True)
+print("Databases to dump: {}".format(databases), flush=True)
 
 
 def dump_database(db_name: str) -> subprocess.CompletedProcess:
@@ -25,7 +25,11 @@ def dump_database(db_name: str) -> subprocess.CompletedProcess:
 
     dest_file = "{path}/{file}".format(path=dest_path, file=filename,)
 
-    dump_cmd = ["pg_dump", "-d", db_name, "-w", "--format", "c"]
+    if db_name == "__all__":
+        dump_cmd = ["pg_dumpall"]
+    else:
+        dump_cmd = ["pg_dump", "-d", db_name, "-w", "--format", "c"]
+
     with open(dest_file, "w") as outfile:
         exe_result = subprocess.run(dump_cmd, stdout=outfile)
 

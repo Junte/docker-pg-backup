@@ -4,7 +4,7 @@ ENV PG_MAJOR 12
 ENV PG_CLIENT_VERSION 12
 
 ENV PGHOST='localhost:5432' \
-    PGUSER='postgres@postgres' \
+    PGUSER='postgres' \
     PGPASSWORD='password'
 
 WORKDIR /src
