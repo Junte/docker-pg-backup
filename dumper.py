@@ -26,7 +26,7 @@ def dump_database(db_name: str) -> subprocess.CompletedProcess:
     dest_file = "{path}/{file}".format(path=dest_path, file=filename,)
 
     if db_name == "__all__":
-        dump_cmd = ["pg_dumpall"]
+        dump_cmd = ["pg_dumpall", "--clean"]
     else:
         dump_cmd = ["pg_dump", "-d", db_name, "-w", "--format", "c"]
 
