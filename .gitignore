@@ -1,4 +1,2 @@
 .vscode
-docker-compose.yml
-backups
-db_env
+test
