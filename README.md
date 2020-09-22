@@ -10,10 +10,6 @@ Example `backup.sh`:
 set -o errexit
 set -o nounset
 
-cd /opt/esanum/services/postgres
-
-source .env
-
 docker run \
     -e PGHOST=<pg_host> \
     -e PGUSER=<pg_user> \
