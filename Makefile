@@ -8,4 +8,4 @@ publish:
 	@docker push $(docker_tag)
 
 tag:
-	push && git tag -a $(version) -m $(version) && git push --tags
+	git push && git tag -a $(version) -m $(version) && git push --tags
