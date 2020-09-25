@@ -1,8 +1,11 @@
-version = 1.5-client12
-tag = junte/pg-backup:$(version)
+version = $(shell cat VERSION)
+docker_tag = junte/pg-backup:$(version)
 
 build:
-	@docker build -t $(tag) .
+	@docker build -t $(docker_tag) .
 
 publish:
-	@docker push $(tag)
+	@docker push $(docker_tag)
+
+tag:
+	push && git tag -a $(version) -m $(version) && git push --tags
