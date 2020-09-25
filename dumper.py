@@ -45,16 +45,16 @@ def dump_database(db_name: str) -> subprocess.CompletedProcess:
 
 
 for database in databases:
-    print("# Backup database: {} ... ".format(database), end="", flush=True)
+    print("# Backup database: {0} ... ".format(database), end="", flush=True)
 
     result_msg = "ok"
     try:
         proc_result = dump_database(database)
     except Exception as err:
-        result_msg = "fail [err: {}]".format(err)
+        result_msg = "fail [err: {0}]".format(err)
     else:
         if proc_result.returncode != 0:
-            result_msg = "fail [ret code: {}]".format(proc_result.returncode)
+            result_msg = "fail [ret code: {0}]".format(proc_result.returncode)
 
     print(result_msg)
 

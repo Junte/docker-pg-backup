@@ -1,7 +1,7 @@
 FROM python:3.8-slim-buster
 
-ENV PG_MAJOR 12
-ENV PG_CLIENT_VERSION 12
+ENV PG_MAJOR 13
+ENV PG_CLIENT_VERSION 13
 
 ENV PGHOST='localhost:5432' \
     PGUSER='postgres' \
